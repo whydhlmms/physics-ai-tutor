@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>《大学物理》智能助教 · 物小理</title>
+<meta name="description" content="面向高校学生的《大学物理》数智化学习平台：AI 分步答疑、章节智能测验、错题本学情诊断、公式速查与互动物理实验。">
+<meta name="theme-color" content="#070C17">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23070C17'/%3E%3Ccircle cx='16' cy='16' r='4' fill='%2357D2F2'/%3E%3Cellipse cx='16' cy='16' rx='12' ry='4.5' fill='none' stroke='%236A8DFF' stroke-width='1.4' transform='rotate(-25 16 16)'/%3E%3Cellipse cx='16' cy='16' rx='12' ry='4.5' fill='none' stroke='%23A88BFF' stroke-width='1.4' transform='rotate(55 16 16)'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<!-- ================= 导航 ================= -->
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="返回顶部">
+      <span class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#8FE6FF" stroke-width="1.4">
+          <circle cx="12" cy="12" r="2.6" fill="#8FE6FF" stroke="none"/>
+          <ellipse cx="12" cy="12" rx="9.5" ry="3.6" transform="rotate(-28 12 12)"/>
+          <ellipse cx="12" cy="12" rx="9.5" ry="3.6" transform="rotate(62 12 12)"/>
+        </svg>
+      </span>
+      <span class="brand-text">
+        <strong>大学物理 · 智能助教</strong>
+        <span>Physics AI Tutor</span>
+      </span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#overview">平台概述</a>
+      <a href="#philosophy">理念思路</a>
+      <a href="#ai">AI答疑</a>
+      <a href="#quiz">智能测验</a>
+      <a href="#wrongbook">错题本</a>
+      <a href="#formulas">公式速查</a>
+      <a href="#lab">互动实验</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="打开菜单" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+        <path d="M4 7h16M4 12h16M4 17h16"/>
+      </svg>
+    </button>
+  </div>
+</header>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#overview">平台概述</a>
+  <a href="#philosophy">理念思路</a>
+  <a href="#chapters">知识地图</a>
+  <a href="#ai">AI 智能答疑</a>
+  <a href="#quiz">智能测验</a>
+  <a href="#wrongbook">错题本</a>
+  <a href="#formulas">公式速查</a>
+  <a href="#lab">互动实验室</a>
+</div>
+
+<main id="top">
+
+<!-- ================= Hero ================= -->
+<section class="hero">
+  <canvas id="heroCanvas"></canvas>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow"><i></i>University Physics · AI Learning</span>
+        <h1>让每一道物理题<br><span class="grad">都讲得清“为什么”</span></h1>
+        <p class="hero-lead">
+          面向高校学生的《大学物理》数智化学习平台。以 AI 分步答疑为入口，以章节测验与错题诊断为闭环，
+          把抽象的概念、冗长的推导和不及时的答疑，变成随时可问、可练、可诊断的学习伙伴。
+        </p>
+        <div class="hero-actions">
+          <a href="#ai" class="btn btn-primary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9.6 9.6 0 0 1-3.8-.8L3 21l1.9-4.6A8.2 8.2 0 0 1 4 11.5 8.4 8.4 0 0 1 12.5 3 8.4 8.4 0 0 1 21 11.5z"/></svg>
+            开始提问
+          </a>
+          <a href="#quiz" class="btn btn-ghost">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            立即测验
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div><strong>6</strong><span>课程模块</span></div>
+          <div><strong>60+</strong><span>章节题库</span></div>
+          <div><strong>7×24</strong><span>随时答疑</span></div>
+          <div><strong>0</strong><span>注册门槛</span></div>
+        </div>
+      </div>
+
+      <div class="hero-visual" aria-hidden="true">
+        <div class="orbit-art">
+          <svg viewBox="0 0 420 420">
+            <circle cx="210" cy="210" r="152" fill="none" stroke="rgba(129,165,219,.16)" stroke-dasharray="2 9"/>
+            <circle cx="210" cy="210" r="112" fill="none" stroke="rgba(129,165,219,.1)" stroke-dasharray="2 9"/>
+            <g class="spin-slow">
+              <ellipse cx="210" cy="210" rx="176" ry="60" fill="none" stroke="rgba(87,210,242,.32)" stroke-width="1.2"/>
+              <circle cx="386" cy="210" r="6.5" fill="#57D2F2"/>
+              <circle cx="34" cy="210" r="4" fill="#57D2F2" opacity=".45"/>
+            </g>
+            <g class="spin-mid">
+              <ellipse cx="210" cy="210" rx="150" ry="52" fill="none" stroke="rgba(106,141,255,.3)" stroke-width="1.2" transform="rotate(60 210 210)"/>
+              <circle cx="360" cy="210" r="5.5" fill="#8FA8FF" transform="rotate(60 210 210)"/>
+            </g>
+            <g class="spin-fast">
+              <ellipse cx="210" cy="210" rx="128" ry="44" fill="none" stroke="rgba(168,139,255,.3)" stroke-width="1.2" transform="rotate(-55 210 210)"/>
+              <circle cx="338" cy="210" r="5" fill="#A88BFF" transform="rotate(-55 210 210)"/>
+            </g>
+            <circle class="nucleus" cx="210" cy="210" r="30" fill="url(#ng)"/>
+            <circle cx="210" cy="210" r="14" fill="#0B1322" stroke="#57D2F2" stroke-width="1.4"/>
+            <text x="210" y="216" text-anchor="middle" font-family="Georgia, serif" font-size="15" fill="#BFF3FF">ψ</text>
+            <defs>
+              <radialGradient id="ng">
+                <stop offset="0" stop-color="#57D2F2" stop-opacity=".55"/>
+                <stop offset="1" stop-color="#57D2F2" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="float-card fc-1"><small>Newton</small>F = m<em>a</em></div>
+        <div class="float-card fc-2"><small>Einstein</small>E = m<em>c²</em></div>
+        <div class="float-card fc-3"><small>Heisenberg</small>ΔxΔp ≥ <em>ħ/2</em></div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint"><span></span>SCROLL</div>
+</section>
+
+<!-- ================= 一、平台概述 ================= -->
+<section class="section" id="overview">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-index">01 / OVERVIEW</div>
+      <h2 class="sec-title">为什么需要一位<span>大学物理助教</span></h2>
+      <p class="sec-desc">
+        《大学物理》是理工科专业的基础核心课，覆盖力学、热学、电磁学、光学与近代物理。它以高度抽象的概念、
+        严谨的数学推导和强关联的知识体系著称，也正因如此，成为学生“听得懂、做不对”的典型课程。
+      </p>
+    </div>
+
+    <div class="problem-row">
+      <article class="card reveal">
+        <span class="num">PROBLEM 01</span>
+        <div class="ico">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><ellipse cx="12" cy="12" rx="10" ry="4.2" transform="rotate(-30 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4.2" transform="rotate(60 12 12)"/></svg>
+        </div>
+        <h3>概念抽象，物理图像难建立</h3>
+        <p>电场、磁通量、波函数、熵等概念无法直接感知，学生容易停留在公式记忆，缺少“看得见”的物理图像。</p>
+      </article>
+      <article class="card reveal d1">
+        <span class="num">PROBLEM 02</span>
+        <div class="ico gold">
+          <svg viewBox="0 0 24 24"><path d="M4 19V5M4 19h16"/><path d="M7 15l4-5 3 3 5-7"/><circle cx="19" cy="6" r="1.4"/></svg>
+        </div>
+        <h3>推导链条长，一步卡住全题放弃</h3>
+        <p>从受力分析到列方程再到积分求解，任一环节断裂都会导致整题失分，而课堂难以针对每位学生逐一拆解。</p>
+      </article>
+      <article class="card reveal d2">
+        <span class="num">PROBLEM 03</span>
+        <div class="ico violet">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+        </div>
+        <h3>课后答疑响应不及时</h3>
+        <p>教师与助教精力有限，晚间与考前的集中提问难以即时响应，疑问积压直接影响后续章节的学习信心。</p>
+      </article>
+    </div>
+
+    <div class="sec-head reveal" style="margin-top:76px;margin-bottom:0;">
+      <div class="sec-index">FEATURES</div>
+      <h2 class="sec-title" style="font-size:clamp(24px,2.8vw,32px)">六项核心<span>功能特点</span></h2>
+    </div>
+    <div class="feature-list">
+      <div class="feature reveal">
+        <svg viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9.6 9.6 0 0 1-3.8-.8L3 21l1.9-4.6A8.2 8.2 0 0 1 4 11.5 8.4 8.4 0 0 1 12.5 3 8.4 8.4 0 0 1 21 11.5z"/></svg>
+        <div><h4>AI 分步答疑</h4><p>不直接给答案，按审题、建模、列式、检验四步拆解，配合关键公式与图像解释。</p></div>
+      </div>
+      <div class="feature reveal d1">
+        <svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2.5"/><path d="M8 8h8M8 12h8M8 16h4"/></svg>
+        <div><h4>章节题库测验</h4><p>按六大模块自由组卷，单选与判断混合，题量与限时灵活可调。</p></div>
+      </div>
+      <div class="feature reveal d2">
+        <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+        <div><h4>自动批改与解析</h4><p>提交即出分，逐题给出正确答案、你的作答与知识点解析，错因一目了然。</p></div>
+      </div>
+      <div class="feature reveal">
+        <svg viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5V5.5M8 7h8"/></svg>
+        <div><h4>错题本与薄弱点诊断</h4><p>错题自动归档，按知识点统计错误次数，生成可视化图表与复习优先级。</p></div>
+      </div>
+      <div class="feature reveal d1">
+        <svg viewBox="0 0 24 24"><path d="M4 19V5M4 19h16"/><rect x="7" y="11" width="3" height="5" rx=".6"/><rect x="12" y="7" width="3" height="9" rx=".6"/><rect x="17" y="13" width="3" height="3" rx=".6"/></svg>
+        <div><h4>学习数据可视化</h4><p>做题量、正确率、章节掌握度与成绩趋势，全部来自你的真实练习记录。</p></div>
+      </div>
+      <div class="feature reveal d2">
+        <svg viewBox="0 0 24 24"><path d="M2 12c2.5-5 5.5-7 10-7s7.5 2 10 7c-2.5 5-5.5 7-10 7s-7.5-2-10-7z"/><circle cx="12" cy="12" r="2.6"/></svg>
+        <div><h4>公式速查与互动实验</h4><p>六大模块常用公式一键检索，简谐振动、行波、洛伦兹力、双缝干涉可视化调参。</p></div>
+      </div>
+    </div>
+
+    <div class="impact reveal">
+      <div>
+        <strong>7×24</strong>
+        <h4>随时答疑，缩短反馈周期</h4>
+        <p>把“等下一次课”变成“此刻就能问”，把疑问解决在遗忘之前。</p>
+      </div>
+      <div>
+        <strong>100%</strong>
+        <h4>以练促学，即时检验理解</h4>
+        <p>每学完一节即可测验，自动批改与解析让练习真正产生学习收益。</p>
+      </div>
+      <div>
+        <strong>6 维</strong>
+        <h4>数据驱动，精准教学</h4>
+        <p>知识点错误分布为教师提供学情依据，把讲评聚焦在学生真正的卡点上。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-line">
+
+<!-- ================= 二、理念与思路 ================= -->
+<section class="section alt" id="philosophy">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-index">02 / PHILOSOPHY</div>
+      <h2 class="sec-title">以学生为中心，以<span>成果为导向</span></h2>
+      <p class="sec-desc">
+        平台不是把课堂搬到线上，而是用智能技术重构“学—练—诊—改”的学习链条：
+        让学生按自己的节奏理解，让教师基于数据改进教学。
+      </p>
+    </div>
+
+    <div class="philosophy-grid">
+      <div class="phi-card reveal">
+        <span class="en">Student-Centered</span>
+        <h3>「学生为中心」</h3>
+        <p>学习发生在学生自己的思考里。平台把“教师讲”转化为“学生问”，让每位学生拥有可反复追问、不惧犯错的私人助教。</p>
+        <ul>
+          <li>自定节奏：随时暂停、追问、回看推导</li>
+          <li>低心理成本：问题再基础也不会被评判</li>
+          <li>差异化路径：按薄弱知识点推荐复习顺序</li>
+        </ul>
+      </div>
+      <div class="phi-card reveal d1">
+        <span class="en">Outcome-Based Education</span>
+        <h3>「OBE 成果导向」</h3>
+        <p>以“学生最终能做什么”反向设计学习活动：从知识目标出发，用可测量的练习与诊断证明达成度。</p>
+        <ul>
+          <li>目标可测：每章对应明确的知识点清单</li>
+          <li>过程可证：测验记录与错题数据构成证据链</li>
+          <li>持续改进：数据回流教学，形成闭环</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="sec-head reveal" style="margin-bottom:0;">
+      <div class="sec-index">TRANSFORMATION</div>
+      <h2 class="sec-title" style="font-size:clamp(24px,2.8vw,32px)">课程教学的<span>四阶段转型</span></h2>
+    </div>
+
+    <div class="timeline reveal">
+      <div class="tl-item">
+        <span class="tl-dot"></span>
+        <div class="tl-year">STAGE 01</div>
+        <h4>传统教学</h4>
+        <p>黑板讲授 + 纸质作业。知识单向传递，反馈以周为单位，学生差异被平均化处理。</p>
+        <span class="tag">教师中心</span>
+      </div>
+      <div class="tl-item">
+        <span class="tl-dot"></span>
+        <div class="tl-year">STAGE 02</div>
+        <h4>信息化教学</h4>
+        <p>多媒体课件、慕课与虚拟仿真进入课堂，抽象概念开始有了动画与可视化的支撑。</p>
+        <span class="tag">资源数字化</span>
+      </div>
+      <div class="tl-item">
+        <span class="tl-dot"></span>
+        <div class="tl-year">STAGE 03</div>
+        <h4>数字化教学</h4>
+        <p>在线作业与学习平台沉淀过程数据，教师可以查看完成率、正确率，教学决策开始有据可依。</p>
+        <span class="tag">数据可采集</span>
+      </div>
+      <div class="tl-item">
+        <span class="tl-dot"></span>
+        <div class="tl-year">STAGE 04</div>
+        <h4>数智化教学</h4>
+        <p>大模型承担个性化答疑，错题数据生成学情画像，教学从“统一进度”走向“精准滴灌”。</p>
+        <span class="tag gold">人机协同</span>
+      </div>
+    </div>
+
+    <div class="loop reveal">
+      <div class="loop-head">
+        <h3>学习闭环：学 → 练 → 诊 → 改</h3>
+        <p>四个环节互为输入，构成可持续的自主学习循环</p>
+      </div>
+      <div class="loop-flow">
+        <div class="loop-step">
+          <div class="k">STEP 01 / 学</div>
+          <h5>AI 分步答疑</h5>
+          <p>把卡住的那一步讲透，而不是把答案念一遍。</p>
+        </div>
+        <div class="loop-step">
+          <div class="k">STEP 02 / 练</div>
+          <h5>章节智能测验</h5>
+          <p>即时批改与逐题解析，检验理解是否真正发生。</p>
+        </div>
+        <div class="loop-step">
+          <div class="k">STEP 03 / 诊</div>
+          <h5>错题与薄弱点</h5>
+          <p>按知识点聚合错误，定位“总是错在哪一类”。</p>
+        </div>
+        <div class="loop-step">
+          <div class="k">STEP 04 / 改</div>
+          <h5>个性化建议</h5>
+          <p>生成复习优先级，重做错题，回到“学”再出发。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-line">
+
+<!-- ================= 三、知识地图 ================= -->
+<section class="section" id="chapters">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-index">03 / KNOWLEDGE MAP</div>
+      <h2 class="sec-title">六大模块，一张<span>知识地图</span></h2>
+      <p class="sec-desc">
+        点击任意模块，AI 助教会为你梳理该章的核心概念、公式链条与常见易错点；
+        也可以直接进入该章节的测验，先测后学。
+      </p>
+    </div>
+    <div class="chapter-grid" id="chapterGrid"></div>
+  </div>
+</section>
+
+<hr class="section-line">
+
+<!-- ================= 四、AI 答疑 ================= -->
+<section class="section alt" id="ai">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-index">04 / AI TUTOR · 核心创新 01</div>
+      <h2 class="sec-title">会拆步骤的<span>AI 智能答疑</span></h2>
+      <p class="sec-desc">
+        覆盖力学、振动与波动、热学、电磁学、光学、近代物理六大模块。回答以“思路 → 步骤 → 公式 → 结论”结构呈现，
+        支持快捷提问与连续追问；也可在右上角接入你自己的大模型接口。
+      </p>
+    </div>
+
+    <div class="ai-shell reveal">
+      <aside class="ai-side">
+        <h4>按章节提问</h4>
+        <div class="ai-chapter-list" id="aiChapters"></div>
+        <h4>高频提问</h4>
+        <div class="quick-list" id="quickList"></div>
+        <div class="ai-side-note">
+          助教基于课程知识库作答，并支持接入大语言模型。回答用于学习辅助，关键结论请与教材、课堂讲授核对。
+        </div>
+      </aside>
+
+      <div class="ai-main">
+        <div class="ai-head">
+          <div class="ai-avatar">物</div>
+          <div class="ai-head-info">
+            <strong>物小理 · 课程助教</strong>
+            <span><i></i>在线 · <em id="engineLabel" style="font-style:normal">本地知识引擎</em></span>
+          </div>
+          <div class="ai-head-actions">
+            <button class="icon-btn" id="btnModel" title="接入大模型" aria-label="接入大模型">
+              <svg viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M4.2 7.5l2.6 1.5M17.2 15l2.6 1.5M4.2 16.5l2.6-1.5M17.2 9l2.6-1.5"/><circle cx="12" cy="12" r="3.4"/></svg>
+            </button>
+            <button class="icon-btn" id="btnClearChat" title="清空对话" aria-label="清空对话">
+              <svg viewBox="0 0 24 24"><path d="M4 7h16M9 7V5h6v2M6 7l1 13h10l1-13"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="chat-scroll" id="chatScroll"></div>
+
+        <div class="chat-input-bar">
+          <div class="chat-input-box">
+            <textarea id="chatInput" rows="1" placeholder="描述你的问题，例如：动量守恒和机械能守恒怎么区分？"></textarea>
+            <button class="send-btn" id="btnSend" aria-label="发送">
+              <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l16-8-6 16-3-6-7-2z"/></svg>
+            </button>
+          </div>
+          <div class="chat-hint">
+            <span class="mode"><i></i><span id="modeHint">本地知识引擎 · 离线可用</span></span>
+            <span>Enter 发送 · Shift+Enter 换行</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-line">
+
+<!-- ================= 五、智能测验 ================= -->
+<section class="section" id="quiz">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-index">05 / SMART QUIZ · 核心创新 02</div>
+      <h2 class="sec-title">按章节组卷的<span>智能测验</span></h2>
+      <p class="sec-desc">
+        选择题型与题量即可开始，提交后自动批改，给出得分、逐题解析与知识点标注；
+        答错的题目会自动进入错题本，成为下一次复习的起点。
+      </p>
+    </div>
+
+    <div class="quiz-shell reveal" id="quizShell">
+      <!-- 组卷 -->
+      <div class="quiz-setup" id="quizSetup">
+        <h3>开始一次测验</h3>
+        <p>选择章节范围与题量，系统将从题库中随机抽题。</p>
+
+        <span class="setup-label">章节范围</span>
+        <div class="chip-grid" id="quizChapters"></div>
+
+        <span class="setup-label">题型</span>
+        <div class="chip-grid" id="quizTypes">
+          <button class="chip on" data-type="all">混合题型</button>
+          <button class="chip" data-type="single">仅单选题</button>
+          <button class="chip" data-type="judge">仅判断题</button>
+        </div>
+
+        <span class="setup-label">题量</span>
+        <div class="chip-grid" id="quizCounts">
+          <button class="chip" data-count="5">5 题 · 快速检验</button>
+          <button class="chip on" data-count="8">8 题 · 常规练习</button>
+          <button class="chip" data-count="12">12 题 · 强化训练</button>
+        </div>
+
+        <div class="quiz-summary">
+          <button class="btn btn-primary" id="btnStartQuiz">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3l14 9-14 9V3z"/></svg>
+            开始测验
+          </button>
+          <span class="meta" id="quizMeta">题库待加载…</span>
+        </div>
+      </div>
+
+      <!-- 答题 -->
+      <div class="quiz-play" id="quizPlay">
+        <div class="quiz-topbar">
+          <div class="quiz-progress-wrap">
+            <div class="quiz-progress-meta">
+              <span id="qProgressText">第 1 / 8 题</span>
+              <span id="qProgressPct">0%</span>
+            </div>
+            <div class="quiz-progress"><i id="qProgressBar"></i></div>
+          </div>
+          <div class="quiz-timer">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+            <span id="qTimer">00:00</span>
+          </div>
+          <button class="chip" id="btnQuitQuiz">退出</button>
+        </div>
+
+        <div class="q-card">
+          <div class="q-tag-row" id="qTags"></div>
+          <p class="q-text" id="qText"></p>
+          <div class="q-options" id="qOptions"></div>
+        </div>
+
+        <div class="q-dots" id="qDots"></div>
+
+        <div class="quiz-footer">
+          <button class="btn btn-ghost btn-sm" id="btnPrevQ">上一题</button>
+          <div class="spacer"></div>
+          <button class="btn btn-ghost btn-sm" id="btnNextQ">下一题</button>
+          <button class="btn btn-primary btn-sm" id="btnSubmitQuiz">提交批改</button>
+        </div>
+      </div>
+
+      <!-- 结果 -->
+      <div class="result-view" id="quizResult">
+        <div class="score-hero">
+          <div class="score-ring">
+            <svg viewBox="0 0 120 120">
+              <circle cx="60" cy="60" r="52" fill="none" stroke="rgba(129,165,219,.14)" stroke-width="7"/>
+              <circle id="scoreArc" cx="60" cy="60" r="52" fill="none" stroke="url(#scoreGrad)" stroke-width="7" stroke-linecap="round" stroke-dasharray="326.7" stroke-dashoffset="326.7"/>
+              <defs>
+                <linearGradient id="scoreGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#57D2F2"/>
+                  <stop offset=".55" stop-color="#6A8DFF"/>
+                  <stop offset="1" stop-color="#A88BFF"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <div class="val"><strong id="scoreNum">0</strong><span>SCORE</span></div>
+          </div>
+          <div class="score-copy">
+            <h3 id="resultTitle">测验完成</h3>
+            <p id="resultComment"></p>
+            <div class="score-stats">
+              <div><strong id="statCorrect">0</strong><span>答对</span></div>
+              <div><strong id="statWrong">0</strong><span>答错</span></div>
+              <div><strong id="statRate">0%</strong><span>正确率</span></div>
+              <div><strong id="statTime">00:00</strong><span>用时</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-head">
+          <h4>逐题解析</h4>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <button class="btn btn-ghost btn-sm" id="btnRetryQuiz">再测一次</button>
+            <button class="btn btn-primary btn-sm" id="btnGoWrong">查看错题本</button>
+          </div>
+        </div>
+        <div class="review-list" id="reviewList"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-line">
+
+<!-- ================= 六、错题本 ================= -->
+<section class="section alt" id="wrongbook">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-index">06 / MISTAKE BOOK & ANALYSIS</div>
+      <h2 class="sec-title">会诊断的<span>错题本</span></h2>
+      <p class="sec-desc">
+        错题不会只是被“收藏”，而是按知识点聚合、按频次排序，形成你的薄弱项画像；
+        结合正确率与练习量，生成可执行的复习建议。数据保存在本机浏览器，无需注册。
+      </p>
+    </div>
+
+    <div class="stat-strip reveal">
+      <div class="stat-card"><span>错题总数</span><strong id="wbTotal">0</strong><small>道 · 去重后</small></div>
+      <div class="stat-card"><span>累计作答</span><strong id="wbAnswered">0</strong><small>题次</small></div>
+      <div class="stat-card"><span>总体正确率</span><strong id="wbRate">—</strong><small>基于全部测验</small></div>
+      <div class="stat-card"><span>薄弱知识点</span><strong id="wbWeak">—</strong><small>错误最集中</small></div>
+    </div>
+
+    <div class="mistake-layout">
+      <div class="panel reveal">
+        <h4>知识点薄弱项</h4>
+        <p class="sub">按累计错误次数排序，取前 6 项</p>
+        <div class="chart-box"><canvas id="chartWeak"></canvas></div>
+      </div>
+      <div class="panel reveal d1">
+        <h4>章节错误分布</h4>
+        <p class="sub">你的错题集中在哪些模块</p>
+        <div class="chart-box"><canvas id="chartChapter"></canvas></div>
+      </div>
+    </div>
+
+    <div class="panel reveal" style="margin-bottom:26px;">
+      <h4>个性化学习建议</h4>
+      <p class="sub">依据错题分布与正确率自动生成，随练习记录实时更新</p>
+      <div class="advice-list" id="adviceList"></div>
+    </div>
+
+    <div class="panel reveal">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:16px;">
+        <div>
+          <h4>错题清单</h4>
+          <p class="sub" style="margin:0;">点击「重做」进入针对性练习，答对后可从清单移除</p>
+        </div>
+        <div style="display:flex;gap:10px;">
+          <button class="btn btn-ghost btn-sm" id="btnRedoAll">重做全部错题</button>
+          <button class="btn btn-ghost btn-sm" id="btnClearWrong">清空错题本</button>
+        </div>
+      </div>
+      <div class="wrong-list" id="wrongList"></div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-line">
+
+<!-- ================= 七、公式速查 ================= -->
+<section class="section" id="formulas">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-index">07 / FORMULA INDEX</div>
+      <h2 class="sec-title">考前十分钟的<span>公式速查</span></h2>
+      <p class="sec-desc">六大模块常用公式与使用条件，支持按名称、符号或章节检索。公式旁标注了适用前提，避免“套错公式”。</p>
+    </div>
+    <div class="formula-toolbar reveal">
+      <label class="search-box">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <input type="search" id="formulaSearch" placeholder="搜索公式，如：动量、Δx、卡诺、光电效应…">
+      </label>
+      <div class="chip-grid" id="formulaChips"></div>
+    </div>
+    <div class="formula-grid" id="formulaGrid"></div>
+    <p class="sub" id="formulaEmpty" style="display:none;color:var(--dim);font-size:13px;text-align:center;padding:30px 0;">没有匹配的公式，试试其他关键词。</p>
+  </div>
+</section>
+
+<hr class="section-line">
+
+<!-- ================= 八、互动实验室 ================= -->
+<section class="section alt" id="lab">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-index">08 / INTERACTIVE LAB</div>
+      <h2 class="sec-title">把抽象概念<span>画出来</span></h2>
+      <p class="sec-desc">
+        拖动参数，观察振动、波动、洛伦兹力与干涉条纹如何随之改变。
+        很多“记不住”的结论，看一眼图像就理解了。
+      </p>
+    </div>
+
+    <div class="lab-shell reveal">
+      <div class="lab-tabs" id="labTabs">
+        <button class="on" data-lab="shm">简谐振动</button>
+        <button data-lab="wave">行波与驻波</button>
+        <button data-lab="lorentz">带电粒子在磁场中</button>
+        <button data-lab="double">双缝干涉</button>
+      </div>
+      <div class="lab-body">
+        <div class="lab-stage">
+          <canvas id="labCanvas" width="820" height="420"></canvas>
+          <div class="lab-readout" id="labReadout"></div>
+        </div>
+        <div class="lab-controls" id="labControls"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-line">
+
+<!-- ================= 九、链接与二维码 ================= -->
+<section class="section" id="share">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-index">09 / ACCESS</div>
+      <h2 class="sec-title">网页链接与<span>访问二维码</span></h2>
+      <p class="sec-desc">电脑端可直接访问下方链接，手机端扫码即可打开。建议加入浏览器收藏夹，随时练习。</p>
+    </div>
+
+    <div class="share-grid">
+      <div class="share-card reveal">
+        <h3>在线访问地址</h3>
+        <p>平台为纯前端应用，所有学习记录保存在访问设备的浏览器本地（localStorage），换设备不会同步。</p>
+        <div class="link-box">
+          <span id="siteUrl">https://whydhlmms.github.io/physics-ai-tutor/</span>
+          <button id="btnCopyLink">复制链接</button>
+        </div>
+        <div class="share-meta">
+          <div><span>课程</span><b>大学物理</b></div>
+          <div><span>模块</span><b>6 个</b></div>
+          <div><span>题库</span><b>60 题</b></div>
+          <div><span>部署</span><b>GitHub Pages</b></div>
+        </div>
+        <div style="margin-top:24px;display:flex;gap:12px;flex-wrap:wrap;">
+          <button class="btn btn-primary btn-sm" id="btnOpenSite">打开网站</button>
+          <button class="btn btn-ghost btn-sm" id="btnExportData">导出学习数据</button>
+        </div>
+      </div>
+      <div class="qr-card reveal d1">
+        <div class="qr-frame">
+          <img id="qrImg" src="assets/img/qrcode.png" alt="网站访问二维码" width="156" height="156">
+        </div>
+        <strong>扫码进入平台</strong>
+        <p>手机扫码 · 无需安装<br>适配手机与平板浏览</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ================= 页脚 ================= -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a class="brand" href="#top" style="margin-bottom:16px;">
+          <span class="brand-mark">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#8FE6FF" stroke-width="1.4">
+              <circle cx="12" cy="12" r="2.6" fill="#8FE6FF" stroke="none"/>
+              <ellipse cx="12" cy="12" rx="9.5" ry="3.6" transform="rotate(-28 12 12)"/>
+              <ellipse cx="12" cy="12" rx="9.5" ry="3.6" transform="rotate(62 12 12)"/>
+            </svg>
+          </span>
+          <span class="brand-text"><strong>大学物理 · 智能助教</strong><span>Physics AI Tutor</span></span>
+        </a>
+        <p>一个以学生为中心、以成果为导向的课程学习伙伴。让答疑随时发生，让练习真正有效，让数据服务教学。</p>
+      </div>
+      <div>
+        <h5>快速导航</h5>
+        <a class="f-link" href="#overview">平台概述</a>
+        <a class="f-link" href="#philosophy">理念与思路</a>
+        <a class="f-link" href="#chapters">知识地图</a>
+        <a class="f-link" href="#ai">AI 智能答疑</a>
+      </div>
+      <div>
+        <h5>学习工具</h5>
+        <a class="f-link" href="#quiz">智能测验</a>
+        <a class="f-link" href="#wrongbook">错题本与诊断</a>
+        <a class="f-link" href="#formulas">公式速查</a>
+        <a class="f-link" href="#lab">互动物理实验室</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span><b>《大学物理》课程智能助教</b> · 课程作业展示作品</span>
+      <span>纯前端实现 · 数据本地存储 · 建议使用 Chrome / Edge / Safari 最新版访问</span>
+    </div>
+  </div>
+</footer>
+
+<!-- 大模型接入弹层 -->
+<div class="modal-mask" id="modelModal">
+  <div class="modal">
+    <h3>接入大语言模型（可选）</h3>
+    <p>
+      默认使用内置的本地知识引擎，离线即可体验完整答疑流程。
+      若填写兼容 OpenAI 协议的接口地址与密钥，回答将由真实大模型生成；密钥仅保存在本机浏览器，不会上传到其他服务器。
+    </p>
+    <div class="field">
+      <label>接口地址（Chat Completions）</label>
+      <input id="apiUrl" type="text" placeholder="https://api.deepseek.com/v1/chat/completions">
+    </div>
+    <div class="field">
+      <label>模型名称</label>
+      <input id="apiModel" type="text" placeholder="deepseek-chat">
+    </div>
+    <div class="field">
+      <label>API Key</label>
+      <input id="apiKey" type="password" placeholder="sk-...">
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost btn-sm" id="btnModelClose">取消</button>
+      <button class="btn btn-ghost btn-sm" id="btnModelReset">恢复本地引擎</button>
+      <button class="btn btn-primary btn-sm" id="btnModelSave">保存并启用</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/chat.js"></script>
+<script src="assets/js/quiz.js"></script>
+</body>
+</html>
